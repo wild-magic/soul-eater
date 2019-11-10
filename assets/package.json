@@ -6,10 +6,12 @@
     "watch": "parcel src/index.ts --out-dir ../priv/static/js"
   },
   "dependencies": {
+    "@avatsaev/three-orbitcontrols-ts": "^0.1.5",
+    "@rooks/use-raf": "^3.4.0",
     "phoenix": "file:../deps/phoenix",
-    "phoenix_html": "file:../deps/phoenix_html",
     "react": "^16.0.0",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "three": "^0.110.0"
   },
   "devDependencies": {
     "@types/node": "^12.7.9",

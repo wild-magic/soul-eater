@@ -29,7 +29,7 @@ npm-debug.log
 /assets/node_modules/
 
 #parcel cacheing
-/assets/.cache
+/assets/.cache/
 
 # Since we are building assets from assets/,
 # we ignore priv/static. You may want to comment
