@@ -3,7 +3,7 @@
   "license": "MIT",
   "scripts": {
     "deploy": "parcel build ",
-    "watch": "webpack-dev-server --mode development --hot --watch-stdin"
+    "watch": "webpack --mode development --hot --watch-stdin"
   },
   "dependencies": {
     "@avatsaev/three-orbitcontrols-ts": "^0.1.5",
@@ -11,6 +11,7 @@
     "phoenix": "file:../deps/phoenix",
     "react": "^16.0.0",
     "react-dom": "^16.11.0",
+    "rxjs": "^6.5.3",
     "three": "^0.110.0"
   },
   "devDependencies": {

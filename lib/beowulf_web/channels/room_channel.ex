@@ -59,6 +59,6 @@ defmodule BeowulfWeb.RoomChannel do
 
   def schedule_tick() do
     # tick betwen 2 and 10 seconds
-    Process.send_after(self, :tick, max(2_000, :rand.uniform(10_000)))
+    Process.send_after(self, :tick, max(100, :rand.uniform(1_000)))
   end
 end

@@ -1,5 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "@avatsaev/three-orbitcontrols-ts";
+import Sphere from "./Sphere";
+import Ground from "./Ground";
+import { Vector3 } from "three";
 
 export interface Transform {
   position: { x: number; y: number; z: number };
@@ -88,22 +91,6 @@ export default class World {
     this.worldObjects["startField"] = starField;
     this.worldObjects["startField2"] = starField2;
 
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    this.scene.add(cube);
-
-    const groundGeo = new THREE.PlaneGeometry(100, 100, 10);
-    const groundMat = new THREE.MeshPhongMaterial({
-      color: 0x65c34a,
-      side: THREE.DoubleSide
-    });
-    const ground = new THREE.Mesh(groundGeo, groundMat);
-    const rot = new THREE.Vector3(1, 0, 0);
-    ground.quaternion.setFromAxisAngle(rot, Math.PI / 2);
-    ground.receiveShadow = true;
-    this.scene.add(ground);
-
     // LIGHTS
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
     hemiLight.color.setHSL(0.6, 1, 0.6);
@@ -159,6 +146,31 @@ export default class World {
   }
 
   updateEntities(entities: any[]) {
-    // BOOP
+    entities.forEach(entity => {
+      const worldObject = this.worldObjects[entity.id];
+      if (worldObject) {
+        worldObject.position.set(
+          entity.position.x,
+          entity.position.y,
+          entity.position.z
+        );
+        worldObject.rotation.set(
+          entity.rotation.x,
+          entity.rotation.y,
+          entity.rotation.z
+        );
+        worldObject.matrixWorldNeedsUpdate = true;
+      } else {
+        let object;
+        if (entity.type === "sphere") {
+          object = new Sphere(entity);
+        }
+        if (entity.type === "ground") {
+          object = new Ground(entity);
+        }
+        this.worldObjects[entity.id] = object;
+        this.scene.add(object);
+      }
+    });
   }
 }
