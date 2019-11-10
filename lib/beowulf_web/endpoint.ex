@@ -42,7 +42,7 @@ defmodule BeowulfWeb.Endpoint do
     key: "_beowulf_key",
     signing_salt: "g6zGqHDM"
 
-  plug Pow.Plug.Session, otp_app: :beowulf
+  # plug Pow.Plug.Session, otp_app: :beowulf
 
   plug BeowulfWeb.Router
 end

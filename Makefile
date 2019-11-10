@@ -33,7 +33,7 @@ release_stop: ## Stop the release Docker container
 	docker-compose stop web
 
 dev: ## Run the app as a mix project
-	docker-compose run --rm --service-ports dev
+	docker-compose run --service-ports dev
 
 dev_create_db: ## Create the db (mix project)
 	docker-compose run --rm --service-ports dev mix ecto.create
