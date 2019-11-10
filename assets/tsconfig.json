@@ -12,7 +12,6 @@
     "noUnusedParameters": false,
     "noUnusedLocals": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "declaration": true
+    "skipLibCheck": true
   }
 }
