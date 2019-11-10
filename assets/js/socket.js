@@ -55,15 +55,28 @@ let socket = new Socket("/socket", { params: { token: window.userToken } });
 socket.connect();
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {});
+let channel = socket.channel("room:lobby", {});
+let initialState = null
 channel
   .join()
   .receive("ok", resp => {
-    console.log("Joined successfully", resp);
+    initialState = resp
+    console.log("Joined successfully, initial state: ", resp);
   })
   .receive("error", resp => {
     console.log("Unable to join", resp);
   });
+channel.on("whisper", msg => console.log("Got whisper", msg) )
+channel.on("shout", msg => console.log("Got shout", msg) )
+const push = () => {
+  channel.push("ping", {data: {hello: "world"}, type: "hello_world", timestamp: new Date()}, 10000)
+    .receive("ok", (msg) => console.log("created message", msg) )
+    .receive("error", (reasons) => console.log("create failed", reasons) )
+    .receive("timeout", () => console.log("Networking issue...") )
+  setTimeout(push, 10000)
+}
+push()
+
 
 const events = {
   // GET FRESH STATE // CLIENT send USER NAME // SERVER gets init state
