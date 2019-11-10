@@ -1,0 +1,56 @@
+version: '3.5'
+
+services:
+  db:
+    image: postgres:11
+    volumes:
+      - "./volumes/postgres:/var/lib/postgresql/data"
+    ports:
+      - 5432
+    env_file:
+      - config/docker.env
+
+  web:
+    depends_on:
+      - db
+    image: "beowulf:latest"
+    ports:
+      - "4000:4000" # In our .env file above, we chose port 4000
+    env_file:
+      - config/docker.env
+
+  dev:
+    depends_on:
+      - db
+    build:
+      args:
+        MIX_ENV: dev
+      dockerfile: Dockerfile-dev
+      context: .
+    command: iex -S mix phx.server
+    ports:
+      - "4000:4000" # In our .env file above, we chose port 4000
+    env_file:
+      - config/docker.env
+    links:
+      - db
+    volumes:
+      - .:/opt/app
+
+  ci:
+    depends_on:
+      - db
+    build:
+      args:
+        MIX_ENV: test
+      dockerfile: Dockerfile-dev
+      context: .
+    command: bash -c "mix test && mix format --check-formatted"
+    ports:
+      - "4000:4000" # In our .env file above, we chose port 4000
+    env_file:
+      - config/test.env
+    links:
+      - db
+    volumes:
+      - .:/opt/app
