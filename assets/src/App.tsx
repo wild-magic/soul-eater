@@ -9,7 +9,9 @@ const App = () => {
   return (
     <div>
       <World />
-      <h1 style={{ width: "100%", textAlign: "center" }}>Soul Eater</h1>
+      <h1 style={{ width: "100%", textAlign: "center", position: "absolute" }}>
+        Soul Eater baba
+      </h1>
     </div>
   );
 };

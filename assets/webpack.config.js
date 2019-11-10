@@ -20,7 +20,11 @@ const config = [
       }
     },
     devtool: "source-map",
-    mode: "production",
+    devServer: {
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    },
     module: {
       rules: [
         {
