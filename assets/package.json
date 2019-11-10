@@ -3,7 +3,7 @@
   "license": "MIT",
   "scripts": {
     "deploy": "parcel build ",
-    "watch": "parcel src/index.ts --out-dir ../priv/static/js"
+    "watch": "webpack --mode development --watch"
   },
   "dependencies": {
     "@avatsaev/three-orbitcontrols-ts": "^0.1.5",
@@ -15,7 +15,15 @@
   },
   "devDependencies": {
     "@types/node": "^12.7.9",
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
+    "less-loader": "^5.0.0",
+    "mini-css-extract-plugin": "^0.8.0",
     "parcel-bundler": "^1.6.1",
-    "typescript": "^3.6.3"
+    "style-loader": "^1.0.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.6.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }

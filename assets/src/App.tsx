@@ -8,8 +8,8 @@ import "../css/app.css";
 const App = () => {
   return (
     <div>
-      <h1 style={{ width: "100%", textAlign: "center" }}>Soul Eater</h1>
       <World />
+      <h1 style={{ width: "100%", textAlign: "center" }}>Soul Eater</h1>
     </div>
   );
 };
