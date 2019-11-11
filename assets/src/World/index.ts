@@ -149,17 +149,28 @@ export default class World {
     entities.forEach(entity => {
       const worldObject = this.worldObjects[entity.id];
       if (worldObject) {
-        worldObject.position.set(
+        if (!entity.position.x) {
+          return;
+        }
+        const newVector = new Vector3(
           entity.position.x,
           entity.position.y,
           entity.position.z
         );
+        worldObject.position.copy(newVector);
         worldObject.rotation.set(
           entity.rotation.x,
           entity.rotation.y,
           entity.rotation.z
         );
+        worldObject.children.forEach(child => {
+          // @ts-ignore
+          const color = (child as THREE.Mesh).material.color.getHex();
+          // @ts-ignore
+          (child as THREE.Mesh).material.color.setHex(color + 10);
+        });
         worldObject.matrixWorldNeedsUpdate = true;
+        console.log("updated", worldObject, entity.position.x);
       } else {
         let object;
         if (entity.type === "sphere") {
@@ -168,8 +179,9 @@ export default class World {
         if (entity.type === "ground") {
           object = new Ground(entity);
         }
+        object.name = entity.id;
         this.worldObjects[entity.id] = object;
-        this.scene.add(object);
+        this.scene.add(this.worldObjects[entity.id]);
       }
     });
   }
