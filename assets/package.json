@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.7.9",
+    "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
     "less-loader": "^5.0.0",

@@ -51,3 +51,5 @@ npm-debug.log
 *.swn
 /volumes
 
+# mac volume nonsense
+.DS_Store

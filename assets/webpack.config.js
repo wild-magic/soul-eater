@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const devMode = process.env.NODE_ENV !== "production";
 
 const config = [
@@ -54,7 +55,8 @@ const config = [
       new webpack.DefinePlugin({
         __isBrowser__: true
       }),
-      new MiniCssExtractPlugin()
+      new MiniCssExtractPlugin(),
+      new CopyPlugin([{ from: "./static", to: "../" }])
     ]
   }
 ];

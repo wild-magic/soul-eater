@@ -170,7 +170,6 @@ export default class World {
           (child as THREE.Mesh).material.color.setHex(color + 10);
         });
         worldObject.matrixWorldNeedsUpdate = true;
-        console.log("updated", worldObject, entity.position.x);
       } else {
         let object;
         if (entity.type === "sphere") {

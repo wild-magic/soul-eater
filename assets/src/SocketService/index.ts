@@ -7,28 +7,26 @@ socket.connect();
 const lobby = socket.channel("room:lobby", {});
 
 export enum CHANNEL_TYPE {
-  JOINED = "joined",
+  JOINED = "ok",
   ERROR = "error",
   WHISPER = "whisper",
   SHOUT = "shout"
 }
 
-// TODO: OMG
-// TERRIBLE!
 export const worldSub = (): Observable<Entity[]> => {
-  let state = [];
-  lobby
-    .join()
-    .receive("ok", ({ data }) => {
-      const { client_world: clientWorld } = data;
-      state = clientWorld;
-    })
-    .receive(CHANNEL_TYPE.ERROR, resp => {
-      console.error(resp);
-    });
   return new Observable<any>(subscriber => {
-    subscriber.next(state); // by the time subscription happens
-    // I think that the OK awk handshake has already passed
+    if (!lobby.joinedOnce) {
+      lobby
+        .join()
+        .receive(CHANNEL_TYPE.JOINED, ({ data }) => {
+          const { client_world: clientWorld } = data;
+          subscriber.next(clientWorld);
+        })
+        .receive(CHANNEL_TYPE.ERROR, resp => {
+          // TODO: something on error?
+          console.error(resp);
+        });
+    }
     lobby.on(CHANNEL_TYPE.WHISPER, ({ data }) => {
       const { new_world: clientWorld } = data;
       subscriber.next(clientWorld);

@@ -15,7 +15,7 @@ const App = () => {
         <h1
           style={{ width: "100%", textAlign: "center", position: "absolute" }}
         >
-          Soul Eater woot
+          Hello World
         </h1>
       </div>
     </SocketContext.Provider>
